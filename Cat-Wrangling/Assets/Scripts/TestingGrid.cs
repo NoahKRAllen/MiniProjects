@@ -11,7 +11,9 @@ public class TestingGrid : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
-        grid = new Grid(4, 4, 10f);
+        grid = new Grid(4, 4, 10f, new Vector3(5,0,0));
+        grid = new Grid(4, 2, 4f, new Vector3(0,0,3));
+        grid = new Grid(8, 4, 7f, new Vector3(5,0,9));
     }
 
     private void Update()

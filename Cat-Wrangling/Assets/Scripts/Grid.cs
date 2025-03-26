@@ -6,18 +6,18 @@ public class Grid
 {
     private int xWidth;
     private int zHeight;
-
     private float cellSize;
+    private Vector3 originPosition;
     private int[,] gridArray;
     private TextMesh[,] debugTextArray;
     
-    public Grid(int width, int height, float cellSize)
+    public Grid(int width, int height, float cellSize, Vector3 originPosition)
     {
         this.xWidth = width;
         this.zHeight = height;
-
         this.cellSize = cellSize;
-        
+        this.originPosition = originPosition;
+
         gridArray = new int[xWidth, zHeight];
         debugTextArray = new TextMesh[xWidth, zHeight];
 
@@ -25,9 +25,8 @@ public class Grid
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
-                    //Debug.Log(x + ", " + y);
-                    //TODO: Change into 3D grid adding in Z to work with 3D objects
-                    debugTextArray[x,z] = UtilsClass.CreateWorldText(gridArray[x, z].ToString(), null, GetWorldPosition(x, z) + new Vector3(cellSize, 0 , cellSize) *.5f, 20, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center, 5000, true);
+                    debugTextArray[x,z] = CreateWorldText(gridArray[x, z].ToString(), null, GetWorldPosition(x, z) + new Vector3(cellSize, 0 , cellSize) *.5f, 
+                        20, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center, 5000, true);
  
                     Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), Color.white, 100f);
                     Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x , z + 1), Color.white, 100f);
@@ -43,16 +42,16 @@ public class Grid
     private Vector3 GetWorldPosition(int x, int z)
     {
         //Debug.Log(new Vector3(x, 0, z) * cellSize);
-        return new Vector3(x, 0, z) * cellSize;
+        return new Vector3(x, 0, z) * cellSize + originPosition;
     }
 
     private void GetXZ(Vector3 worldPosition, out int x, out int z)
     {
-        x = Mathf.FloorToInt(worldPosition.x / cellSize);
-        z = Mathf.FloorToInt(worldPosition.z / cellSize);
+        x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
+        z = Mathf.FloorToInt((worldPosition - originPosition).z / cellSize);
     }
 
-    public void SetValue(int x, int z, int value)
+    void SetValue(int x, int z, int value)
     {
         if (x >= 0 && z >= 0 && x < xWidth && z < zHeight)
         {
@@ -67,7 +66,7 @@ public class Grid
         SetValue(x, z, value);
     }
 
-    public int GetValue(int x, int z)
+    int GetValue(int x, int z)
     {
         if (x >= 0 && z >= 0 && x < xWidth && z < zHeight)
         {
@@ -84,4 +83,25 @@ public class Grid
         return GetValue(x, z);
     }
     
+    
+    private TextMesh CreateWorldText(string text, Transform parent, Vector3 localPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, 
+        int sortingOrder, bool thirdDimension = false) 
+    {
+        GameObject gameObject = new GameObject("World_Text", typeof(TextMesh));
+        Transform transform = gameObject.transform;
+        transform.SetParent(parent, false);
+        transform.localPosition = localPosition;
+        if (thirdDimension)
+        {
+            transform.rotation = Quaternion.Euler(90, 0, 0);
+        }
+        TextMesh textMesh = gameObject.GetComponent<TextMesh>();
+        textMesh.anchor = textAnchor;
+        textMesh.alignment = textAlignment;
+        textMesh.text = text;
+        textMesh.fontSize = fontSize;
+        textMesh.color = color;
+        textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
+        return textMesh;
+    }
 }
