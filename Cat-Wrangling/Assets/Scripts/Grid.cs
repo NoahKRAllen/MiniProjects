@@ -1,10 +1,19 @@
+using System;
 using UnityEngine;
 using CodeMonkey.Utils;
 using UnityEngine.UIElements;
 
 public class Grid
 {
-    private int xWidth;
+    public event EventHandler<OnGridValueChangedEventArgs> OnGridValueChanged;
+
+    public class OnGridValueChangedEventArgs : EventArgs
+    {
+        public int x, z;
+    }
+
+
+private int xWidth;
     private int zHeight;
     private float cellSize;
     private Vector3 originPosition;
@@ -57,6 +66,7 @@ public class Grid
         {
             gridArray[x, z] = value;
             debugTextArray[x, z].text = value.ToString();
+            if (OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, z = z });
         }
     }
 

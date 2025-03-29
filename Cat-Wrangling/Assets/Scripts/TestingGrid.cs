@@ -11,9 +11,7 @@ public class TestingGrid : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
-        grid = new Grid(4, 4, 10f, new Vector3(5,0,0));
-        grid = new Grid(4, 2, 4f, new Vector3(0,0,3));
-        grid = new Grid(8, 4, 7f, new Vector3(5,0,9));
+        grid = new Grid(20, 20, 10f, Vector3.zero);
     }
 
     private void Update()
@@ -38,6 +36,38 @@ public class TestingGrid : MonoBehaviour
                 worldPos.y = 0;
                 Debug.Log(grid.GetValue(worldPos));
             }
+        }
+    }
+
+    private class HeatMapVisual
+    {
+        private Grid grid;
+        private Mesh mesh;
+
+        public HeatMapVisual(Grid grid, MeshFilter meshFilter)
+        {
+            this.grid = grid;
+            
+            mesh = new Mesh();
+            meshFilter.mesh = mesh;
+
+            UpdateHeatMapVisual();
+
+            grid.OnGridValueChanged += Grid_OnGridValueChanged;
+        }
+
+        private void Grid_OnGridValueChanged(object sender, System.EventArgs e)
+        {
+            UpdateHeatMapVisual();
+        }
+
+        public void UpdateHeatMapVisual()
+        {
+            Vector3[] vertices;
+            Vector2[] uv;
+            int[] triangles;
+            
+            
         }
     }
 }
