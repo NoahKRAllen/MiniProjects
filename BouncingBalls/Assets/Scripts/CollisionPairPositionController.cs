@@ -16,6 +16,8 @@ public class CollisionPairPositionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO: Change this, this isn't a once per update, this only needs to be handled upon moving the collision
+        //set from -18 to 18, in the MovingTargetController script.
         foreach (CollisionPairValues pair in collisionPairs)
         {
             pair.CalculateNewPositions();
