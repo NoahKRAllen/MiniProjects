@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class MovingTargetController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject movingTargetOne, movingTargetTwo;
+    [SerializeField] private GameObject movingTargetOne, movingTargetTwo;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (movingTargetOne == null)
+        {
+            movingTargetOne = GameObject.Find("MovingTargetOne");
+        }
+        if (movingTargetTwo == null)
+        {
+            movingTargetTwo = GameObject.Find("MovingTargetTwo");
+        }
     }
 
     // Update is called once per frame
