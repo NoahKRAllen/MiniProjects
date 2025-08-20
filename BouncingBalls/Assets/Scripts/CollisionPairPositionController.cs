@@ -11,6 +11,8 @@ public class CollisionPairPositionController : MonoBehaviour
         {
             collisionPairs = GetComponentsInChildren<CollisionPairValues>();
         }
+        
+        //TODO: Setup handling of initial randomization of the pairs
     }
 
     // Update is called once per frame

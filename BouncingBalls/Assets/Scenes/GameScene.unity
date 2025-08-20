@@ -1888,7 +1888,6 @@ GameObject:
   m_Component:
   - component: {fileID: 687563645}
   - component: {fileID: 687563644}
-  - component: {fileID: 687563646}
   m_Layer: 0
   m_Name: BackgroundController
   m_TagString: Untagged
@@ -1910,7 +1909,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movingTargetOne: {fileID: 1663463433}
   movingTargetTwo: {fileID: 1399638087}
-  pairMatching: {fileID: 0}
 --- !u!4 &687563645
 Transform:
   m_ObjectHideFlags: 0
@@ -1926,22 +1924,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &687563646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687563643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be8578d5bf2a1234fa669a306f552817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstPairOne: {fileID: 1836381315}
-  lastPairOne: {fileID: 1347719944}
-  firstPairTwo: {fileID: 45211013}
-  lastPairTwo: {fileID: 91889421}
 --- !u!1 &752735919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3634,6 +3616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266f0888324eff34a940145bacd68a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionPairs: []
+  previousTargetFinalPairPositions: {fileID: 0}
 --- !u!1 &1473654581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4858,6 +4842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266f0888324eff34a940145bacd68a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionPairs: []
+  previousTargetFinalPairPositions: {fileID: 0}
 --- !u!1 &1667680896
 GameObject:
   m_ObjectHideFlags: 0
